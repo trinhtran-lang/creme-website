@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CRÈME — Croissant Ordering Demo</title>
+  <meta name="description" content="CRÈME is a fictional croissant-only bakery. Browse eight croissants, check ingredients and try a demo basket. No real orders or payments.">
+  <meta name="theme-color" content="#3E2619">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+  <link rel="preload" as="image" href="assets/hero/hero-bg.jpg">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#filling">Skip to the croissants</a>
+
+  <!-- Single continuous fixed background shared by every section.
+       The still image stays as poster/fallback; js/scroll-video.js scrubs the video by scroll position. -->
+  <div class="page-bg" aria-hidden="true">
+    <video class="page-bg-video" id="bgVideo" muted playsinline disablepictureinpicture disableremoteplayback preload="none" tabindex="-1" poster="assets/hero/hero-bg.jpg"></video>
+  </div>
+
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="wordmark" href="#top" aria-label="CRÈME — back to top">CRÈME</a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main">
+        <a href="#top" data-nav="top">Home</a>
+        <a href="#filling" data-nav="filling">Find Your Filling</a>
+        <a href="#wholesale" data-nav="wholesale">Wholesale</a>
+        <a href="#about" data-nav="about">About Us</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="basket-btn" id="basketBtn" type="button" aria-haspopup="dialog" aria-controls="cartDrawer">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="basket-label">Basket</span>
+          <span class="basket-count" id="basketCount" aria-hidden="true">0</span>
+          <span class="visually-hidden" id="basketCountSr">0 items</span>
+        </button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks">
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1. Hero: background only, intentionally no copy -->
+    <section class="hero" id="top" aria-label="CRÈME — a golden croissant in warm light"></section>
+
+    <!-- 2. Find Your Filling -->
+    <section class="section section-filling" id="filling" aria-labelledby="fillingTag">
+      <div class="container">
+        <div class="reveal" data-reveal="left">
+          <p class="section-tag" id="fillingTag">Find Your Filling</p>
+        </div>
+
+        <div class="reveal" data-reveal="left">
+          <div class="carousel" id="carousel">
+            <button class="carousel-arrow prev" id="carouselPrev" type="button" aria-label="Previous croissants" aria-controls="carouselTrack">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="carousel-track" id="carouselTrack" role="list" aria-label="Croissant flavors" tabindex="0">
+              <!-- Product cards rendered from docs/products.json -->
+            </ul>
+            <button class="carousel-arrow next" id="carouselNext" type="button" aria-label="Next croissants" aria-controls="carouselTrack">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <p class="carousel-note">Pickup for any quantity · Delivery from 10 croissants across flavors</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Wholesale & Event Catering -->
+    <section class="section section-trade" id="wholesale" aria-labelledby="tradeTag">
+      <div class="container">
+        <div class="reveal" data-reveal="right">
+          <p class="section-tag" id="tradeTag">Wholesale &amp; Event Catering</p>
+        </div>
+
+        <div class="trade-grid">
+          <div class="reveal" data-reveal="right">
+            <article class="panel trade-panel" aria-labelledby="wholesaleTitle">
+              <p class="eyebrow">For cafés, restaurants &amp; retail</p>
+              <h2 class="panel-title" id="wholesaleTitle">Wholesale</h2>
+              <p>Freshly laminated croissants for your counter, menu or shelf. Choose from all eight flavors, baked early and packed for morning service.</p>
+              <ul class="ticks">
+                <li>Daily or weekly standing orders</li>
+                <li>Mixed-flavor trays for display cases</li>
+                <li>Consistent sizing for café service</li>
+              </ul>
+              <button class="btn btn-primary" type="button" data-open="wholesaleModal">Request Wholesale Pricing</button>
+            </article>
+          </div>
+
+          <div class="reveal" data-reveal="right">
+            <article class="panel trade-panel" aria-labelledby="eventTitle">
+              <p class="eyebrow">For meetings, launches, parties &amp; gatherings</p>
+              <h2 class="panel-title" id="eventTitle">Event Catering</h2>
+              <p>Platters of sweet and savory croissants sized for your guest list, from a morning meeting to a product launch or celebration.</p>
+              <ul class="ticks">
+                <li>Curated sweet &amp; savory platters</li>
+                <li>Guest-count based quantities</li>
+                <li>Allergen notes for your attendees</li>
+              </ul>
+              <button class="btn btn-primary" type="button" data-open="eventModal">Plan Your Event</button>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. About CRÈME -->
+    <section class="section section-about" id="about" aria-labelledby="aboutTag">
+      <div class="container">
+        <div class="reveal" data-reveal="left">
+          <p class="section-tag" id="aboutTag">About CRÈME</p>
+        </div>
+
+        <div class="reveal" data-reveal="left">
+          <div class="panel about-panel">
+            <div class="about-story">
+              <h2 class="panel-title">Only croissants. Done slowly.</h2>
+              <p>CRÈME is a fictional, croissant-only bakery imagined for this ordering demo. Every pastry starts from the same cultured-butter dough, rested overnight and folded by hand until it bakes into fine, shattering layers.</p>
+              <p>We keep the menu short on purpose: one classic, seven fillings, and a counter that empties by evening.</p>
+
+              <dl class="about-facts">
+                <div>
+                  <dt>Hours</dt>
+                  <dd>Daily 7:30 AM–6:30 PM</dd>
+                </div>
+                <div>
+                  <dt>Pickup</dt>
+                  <dd>Collect at the counter at your chosen time. Any quantity, no minimum.</dd>
+                </div>
+                <div>
+                  <dt>Delivery</dt>
+                  <dd>Available for orders of 10 croissants or more, combined across flavors.</dd>
+                </div>
+                <div>
+                  <dt>Contact <span class="muted">(illustrative)</span></dt>
+                  <dd>hello@creme.example · +84 (0) 00 000 0000</dd>
+                </div>
+              </dl>
+            </div>
+
+            <figure class="about-map">
+              <svg class="map-svg" viewBox="0 0 400 320" role="img" aria-labelledby="mapTitle mapDesc">
+                <title id="mapTitle">Illustrative map of a fictitious pickup location</title>
+                <desc id="mapDesc">A stylized street grid beside a river with a marker for the fictitious CRÈME pickup counter in District 1, Ho Chi Minh City. Not a real address.</desc>
+                <rect width="400" height="320" rx="18" fill="#F6ECDF" opacity="0.10"/>
+                <path d="M300 -10 C 330 70, 290 130, 340 190 S 360 290, 330 340" fill="none" stroke="#B8875F" stroke-width="26" opacity="0.55" stroke-linecap="round"/>
+                <g stroke="#F6ECDF" stroke-opacity="0.32" stroke-width="7" stroke-linecap="round">
+                  <path d="M20 70 L 280 60"/>
+                  <path d="M20 150 L 300 140"/>
+                  <path d="M20 240 L 310 228"/>
+                  <path d="M70 20 L 90 300"/>
+                  <path d="M170 20 L 180 300"/>
+                  <path d="M250 20 L 262 300"/>
+                </g>
+                <g stroke="#F6ECDF" stroke-opacity="0.16" stroke-width="3">
+                  <path d="M20 110 L 290 100"/>
+                  <path d="M20 195 L 305 184"/>
+                  <path d="M125 20 L 135 300"/>
+                  <path d="M215 20 L 222 300"/>
+                </g>
+                <path d="M30 290 L 200 30" stroke="#F0D2A1" stroke-opacity="0.28" stroke-width="5" stroke-dasharray="2 10" stroke-linecap="round"/>
+                <circle cx="176" cy="146" r="34" fill="#F0D2A1" opacity="0.14"/>
+                <circle cx="176" cy="146" r="18" fill="#F0D2A1" opacity="0.22"/>
+                <path d="M176 152 c-12 -14 -18 -22 -18 -30 a18 18 0 0 1 36 0 c0 8 -6 16 -18 30z" transform="translate(0 -6)" fill="#F6ECDF"/>
+                <circle cx="176" cy="116" r="6" fill="#8A5A38"/>
+                <text x="198" y="128" fill="#F6ECDF" font-family="DM Sans, system-ui, sans-serif" font-size="13" font-weight="600">CRÈME pickup</text>
+                <text x="198" y="145" fill="#F0D2A1" font-family="DM Sans, system-ui, sans-serif" font-size="11">fictitious location</text>
+                <text x="318" y="300" fill="#F6ECDF" fill-opacity="0.6" font-family="DM Sans, system-ui, sans-serif" font-size="10" text-anchor="middle">river</text>
+              </svg>
+              <figcaption>
+                <strong>Illustrative map</strong> — fictitious pickup location, District 1, Ho Chi Minh City. Not a real shop or address.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>CRÈME · Demo bakery ordering experience</p>
+      <ul class="footer-links" role="list">
+        <li><button type="button" class="link-btn" data-placeholder="Privacy">Privacy</button></li>
+        <li><button type="button" class="link-btn" data-placeholder="Terms">Terms</button></li>
+        <li><button type="button" class="link-btn" data-placeholder="Instagram">Instagram</button></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Ingredients modal -->
+  <dialog class="modal" id="ingredientsModal" aria-labelledby="ingTitle">
+    <div class="modal-panel modal-ingredients">
+      <button class="modal-close" type="button" data-close aria-label="Close ingredients">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="ing-layout">
+        <img class="ing-img" id="ingImg" src="" alt="">
+        <div class="ing-body">
+          <p class="eyebrow" id="ingTag"></p>
+          <h2 class="modal-title" id="ingTitle"></h2>
+          <p class="ing-price" id="ingPrice"></p>
+          <h3 class="mini-heading">Ingredients</h3>
+          <p id="ingList"></p>
+          <h3 class="mini-heading">Allergens</h3>
+          <ul class="allergen-tags" id="ingAllergens" role="list"></ul>
+          <div class="notice">
+            <p><strong>Demo information.</strong> Recipes, prices and allergens are illustrative for this fictional bakery and must not be relied on for dietary decisions.</p>
+            <p>All croissants share one kitchen and equipment with wheat, milk, egg, tree nuts and soy, so cross-contact may occur.</p>
+          </div>
+          <button class="btn btn-primary" type="button" id="ingAdd">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Basket drawer -->
+  <dialog class="drawer" id="cartDrawer" aria-labelledby="cartTitle">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h2 class="modal-title" id="cartTitle">Your Basket</h2>
+        <p class="cart-status" id="cartStatus" role="status" aria-live="polite"></p>
+        <button class="modal-close" type="button" data-close aria-label="Close basket">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="drawer-scroll" id="cartView">
+        <div class="cart-empty" id="cartEmpty">
+          <p>Your basket is empty.</p>
+          <button class="btn btn-ghost" type="button" id="cartBrowse">Browse croissants</button>
+        </div>
+
+        <ul class="cart-lines" id="cartLines" role="list" aria-label="Basket items"></ul>
+
+        <div class="cart-summary" id="cartSummary">
+          <div class="subtotal-row">
+            <span>Subtotal <span class="muted" id="cartUnits"></span></span>
+            <strong id="cartSubtotal">$0.00</strong>
+          </div>
+
+          <div class="threshold" id="threshold" aria-live="polite">
+            <div class="threshold-bar" role="progressbar" aria-label="Progress toward delivery minimum" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="thresholdBar">
+              <span id="thresholdFill"></span>
+            </div>
+            <p id="thresholdText"></p>
+          </div>
+
+          <form class="checkout-form" id="checkoutForm" novalidate>
+            <fieldset class="fulfil">
+              <legend>Fulfilment</legend>
+              <div class="segmented">
+                <label><input type="radio" name="fulfilment" value="pickup" checked> <span>Pickup</span></label>
+                <label><input type="radio" name="fulfilment" value="delivery"> <span>Delivery</span></label>
+              </div>
+            </fieldset>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="orderDate">Date <span aria-hidden="true">*</span></label>
+                <input type="date" id="orderDate" name="date" required aria-describedby="orderDateErr">
+                <p class="field-error" id="orderDateErr"></p>
+              </div>
+              <div class="field">
+                <label for="orderTime">Preferred time <span aria-hidden="true">*</span></label>
+                <select id="orderTime" name="time" required aria-describedby="orderTimeErr">
+                  <option value="">Choose a time</option>
+                </select>
+                <p class="field-error" id="orderTimeErr"></p>
+              </div>
+            </div>
+
+            <div class="field" id="addressField" hidden>
+              <label for="orderAddress">Delivery address <span aria-hidden="true">*</span></label>
+              <textarea id="orderAddress" name="address" rows="2" aria-describedby="orderAddressErr" autocomplete="street-address"></textarea>
+              <p class="field-error" id="orderAddressErr"></p>
+            </div>
+
+            <div class="field">
+              <label for="orderNotes">Order notes <span class="muted">(optional)</span></label>
+              <textarea id="orderNotes" name="notes" rows="2"></textarea>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit" id="checkoutBtn">Place Demo Order</button>
+            <p class="demo-note" id="checkoutHint">Demo only — no order is sent and no payment is taken.</p>
+          </form>
+        </div>
+      </div>
+
+      <div class="drawer-scroll confirm-view" id="confirmView" hidden tabindex="-1">
+        <p class="eyebrow">Demo confirmation</p>
+        <h3 class="modal-title small">Order preview created</h3>
+        <p>This is a local preview only. <strong>Nothing was sent to a bakery and no payment was taken.</strong></p>
+        <dl class="confirm-details" id="confirmDetails"></dl>
+        <div class="confirm-actions">
+          <button class="btn btn-primary btn-block" type="button" id="newOrderBtn">Start a New Demo Order</button>
+          <button class="btn btn-ghost btn-block" type="button" id="backToCartBtn">Back to Basket</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Wholesale inquiry modal -->
+  <dialog class="modal" id="wholesaleModal" aria-labelledby="whTitle">
+    <div class="modal-panel modal-form">
+      <button class="modal-close" type="button" data-close aria-label="Close wholesale inquiry">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="form-view">
+        <p class="eyebrow">Wholesale supply</p>
+        <h2 class="modal-title" id="whTitle">Request Wholesale Pricing</h2>
+        <p class="modal-lead">Tell us about your café, restaurant or shop and the volume you have in mind. This demo form stays on this page.</p>
+        <form class="inquiry-form" data-kind="wholesale" novalidate>
+          <div class="field-row">
+            <div class="field"><label for="whName">Your name *</label><input id="whName" name="name" required autocomplete="name"><p class="field-error"></p></div>
+            <div class="field"><label for="whEmail">Email *</label><input id="whEmail" name="email" type="email" required autocomplete="email"><p class="field-error"></p></div>
+          </div>
+          <div class="field"><label for="whBusiness">Business name *</label><input id="whBusiness" name="business" required autocomplete="organization"><p class="field-error"></p></div>
+          <div class="field-row">
+            <div class="field"><label for="whQty">Estimated croissants per week *</label><input id="whQty" name="quantity" type="number" min="1" step="1" inputmode="numeric" required><p class="field-error"></p></div>
+            <div class="field"><label for="whDate">Preferred start date *</label><input id="whDate" name="date" type="date" required><p class="field-error"></p></div>
+          </div>
+          <div class="field"><label for="whLocation">Business location *</label><input id="whLocation" name="location" required><p class="field-error"></p></div>
+          <div class="field"><label for="whNotes">Notes <span class="muted">(optional)</span></label><textarea id="whNotes" name="notes" rows="3" placeholder="Preferred flavors, delivery days, packaging…"></textarea></div>
+          <button class="btn btn-primary btn-block" type="submit">Submit Demo Wholesale Inquiry</button>
+          <p class="demo-note">Demo only — nothing is sent or stored.</p>
+        </form>
+      </div>
+      <div class="ack-view" hidden tabindex="-1">
+        <p class="eyebrow">Demo acknowledgment</p>
+        <h2 class="modal-title">Wholesale inquiry preview</h2>
+        <p class="ack-text"></p>
+        <p class="demo-note">CRÈME is fictional. This inquiry was not sent and no one will contact you.</p>
+        <button class="btn btn-primary btn-block" type="button" data-close>Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Event catering inquiry modal -->
+  <dialog class="modal" id="eventModal" aria-labelledby="evTitle">
+    <div class="modal-panel modal-form">
+      <button class="modal-close" type="button" data-close aria-label="Close event inquiry">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="form-view">
+        <p class="eyebrow">Event catering</p>
+        <h2 class="modal-title" id="evTitle">Plan Your Event</h2>
+        <p class="modal-lead">Share the occasion, expected quantity and date to preview how an event catering request would work. This demo form stays on this page.</p>
+        <form class="inquiry-form" data-kind="event" novalidate>
+          <div class="field-row">
+            <div class="field"><label for="evName">Your name *</label><input id="evName" name="name" required autocomplete="name"><p class="field-error"></p></div>
+            <div class="field"><label for="evEmail">Email *</label><input id="evEmail" name="email" type="email" required autocomplete="email"><p class="field-error"></p></div>
+          </div>
+          <div class="field">
+            <label for="evType">Event type *</label>
+            <select id="evType" name="business" required>
+              <option value="">Choose an occasion</option>
+              <option>Meeting</option>
+              <option>Product launch</option>
+              <option>Party</option>
+              <option>Private gathering</option>
+              <option>Other</option>
+            </select>
+            <p class="field-error"></p>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="evQty">Estimated croissants *</label><input id="evQty" name="quantity" type="number" min="1" step="1" inputmode="numeric" required><p class="field-error"></p></div>
+            <div class="field"><label for="evDate">Event date *</label><input id="evDate" name="date" type="date" required><p class="field-error"></p></div>
+          </div>
+          <div class="field"><label for="evLocation">Event location *</label><input id="evLocation" name="location" required><p class="field-error"></p></div>
+          <div class="field"><label for="evNotes">Notes <span class="muted">(optional)</span></label><textarea id="evNotes" name="notes" rows="3" placeholder="Guest count, dietary needs, timing…"></textarea></div>
+          <button class="btn btn-primary btn-block" type="submit">Submit Demo Event Inquiry</button>
+          <p class="demo-note">Demo only — nothing is sent or stored.</p>
+        </form>
+      </div>
+      <div class="ack-view" hidden tabindex="-1">
+        <p class="eyebrow">Demo acknowledgment</p>
+        <h2 class="modal-title">Event inquiry preview</h2>
+        <p class="ack-text"></p>
+        <p class="demo-note">CRÈME is fictional. This inquiry was not sent and no one will contact you.</p>
+        <button class="btn btn-primary btn-block" type="button" data-close>Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/scroll-video.js"></script>
+</body>
+</html>
