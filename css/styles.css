@@ -265,8 +265,9 @@ main { overflow-x: clip; }
 /* Gaps are margins so in-page anchors land on the content, not on the empty spacer */
 .section { margin-top: var(--section-gap); }
 .section-filling { margin-top: clamp(40px, 10vh, 120px); }
-/* Extra tail so the video's custard reveal has scroll room after About (see js/scroll-video.js TIMELINE) */
-.section-about { padding-bottom: max(var(--section-gap), 55vh); }
+/* Scroll room after About for the video's custard reveal now comes from the Partners section below
+   (see js/scroll-video.js TIMELINE) */
+.section-partners { padding-bottom: var(--section-gap); }
 
 .section-tag {
   display: inline-flex;
@@ -527,6 +528,62 @@ main { overflow-x: clip; }
   background: rgba(37, 23, 16, .25);
 }
 .about-map figcaption { font-size: 13.5px; color: rgba(246, 236, 223, .88); }
+
+/* ---------- Our Partners marquee ---------- */
+.marquee {
+  overflow: hidden;
+  background: var(--panel-trade);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border-block: 1px solid var(--line);
+  /* Soft edge fade via transparency only — nothing darkens the background */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 48s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
+
+.marquee-group {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wm {
+  position: relative;
+  padding: clamp(20px, 3vw, 30px) clamp(30px, 4vw, 58px);
+  white-space: nowrap;
+  line-height: 1;
+  color: var(--cream);
+}
+/* Small butter dot between names; every item carries one so both copies line up exactly */
+.wm::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  width: 4px; height: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  background: var(--butter);
+  opacity: .7;
+}
+.wm em { font-style: italic; color: var(--butter); }
+
+.wm-serif { font-family: var(--font-display); font-weight: 500; font-size: clamp(24px, 2.3vw, 31px); }
+.wm-serif-italic { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(26px, 2.5vw, 33px); }
+.wm-serif-medium { font-family: var(--font-display); font-weight: 600; font-size: clamp(25px, 2.4vw, 32px); }
+.wm-serif-caps { font-family: var(--font-display); font-weight: 600; font-size: clamp(21px, 2vw, 26px); letter-spacing: .32em; }
+.wm-sans-wide { font-family: var(--font-ui); font-weight: 500; font-size: clamp(13px, 1.1vw, 15px); letter-spacing: .34em; text-transform: uppercase; }
+.wm-sans-caps { font-family: var(--font-ui); font-weight: 600; font-size: clamp(14px, 1.2vw, 16px); letter-spacing: .2em; text-transform: uppercase; }
+.wm-sans-bold { font-family: var(--font-ui); font-weight: 600; font-size: clamp(16px, 1.4vw, 19px); letter-spacing: .06em; }
 
 /* ---------- Footer ---------- */
 .site-footer { padding: 0 0 36px; }
@@ -915,4 +972,11 @@ dialog[open]::backdrop { animation: fade-in .3s ease; }
   }
   .product-card, .trade-panel { transition: background-color .2s, border-color .2s, box-shadow .2s; }
   .product-card:hover, .trade-panel:hover { transform: none !important; }
+  /* Partners: a static, wrapped row instead of a moving marquee */
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { animation: none; width: auto; justify-content: center; }
+  .marquee-group { flex-wrap: wrap; justify-content: center; }
+  .marquee-group[aria-hidden="true"] { display: none; }
+  .wm { padding: 16px clamp(18px, 3vw, 36px); }
+  .wm::after { display: none; }
 }
